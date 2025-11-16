@@ -10,11 +10,13 @@ export default function Login({ setUser }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const API = "https://study-planner-backend-3kmg.onrender.com";
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/api/login", {
+      const res = await axios.post(`${API}/api/login`, {
         email,
         password,
       });
@@ -34,16 +36,27 @@ export default function Login({ setUser }) {
       <form className="form-container" onSubmit={handleLogin}>
         <h2 className="form-title">Login</h2>
 
-        <InputField type="email" placeholder="Email" value={email}
-          onChange={(e) => setEmail(e.target.value)} />
+        <InputField
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-        <InputField type="password" placeholder="Password" value={password}
-          onChange={(e) => setPassword(e.target.value)} />
+        <InputField
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
         <Button type="submit" text="Login" />
 
         <p className="form-footer">
-          Not a user? <Link to="/register" className="form-link">Register here</Link>
+          Not a user?{" "}
+          <Link to="/register" className="form-link">
+            Register here
+          </Link>
         </p>
       </form>
     </div>

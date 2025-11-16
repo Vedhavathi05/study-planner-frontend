@@ -7,11 +7,12 @@ export default function Progress() {
   const [stats, setStats] = useState({});
 
   const token = localStorage.getItem("token");
+  const API = "https://study-planner-backend-3kmg.onrender.com";
 
   // Load subjects
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/subjects", {
+      .get(`${API}/api/subjects`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setSubjects(res.data))
@@ -21,7 +22,7 @@ export default function Progress() {
   // Load sessions
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/session", {
+      .get(`${API}/api/session`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

@@ -10,10 +10,11 @@ export default function Flashcards() {
   const [answer, setAnswer] = useState("");
 
   const token = localStorage.getItem("token");
+  const API = "https://study-planner-backend-3kmg.onrender.com";
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/subjects", {
+      .get(`${API}/api/subjects`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setSubjects(res.data))
@@ -24,7 +25,7 @@ export default function Flashcards() {
     if (!subjectId) return;
 
     axios
-      .get(`http://localhost:5000/api/flashcards/${subjectId}`, {
+      .get(`${API}/api/flashcards/${subjectId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setCards(res.data))
@@ -34,23 +35,31 @@ export default function Flashcards() {
   const addCard = async () => {
     if (!question || !answer || !subjectId) return;
 
-    const res = await axios.post(
-      "http://localhost:5000/api/flashcards",
-      { subjectId, question, answer },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    try {
+      const res = await axios.post(
+        `${API}/api/flashcards`,
+        { subjectId, question, answer },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-    setCards([...cards, res.data]);
-    setQuestion("");
-    setAnswer("");
+      setCards([...cards, res.data]);
+      setQuestion("");
+      setAnswer("");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const deleteCard = async (id) => {
-    await axios.delete(`http://localhost:5000/api/flashcards/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    try {
+      await axios.delete(`${API}/api/flashcards/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-    setCards(cards.filter((c) => c._id !== id));
+      setCards(cards.filter((c) => c._id !== id));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -84,6 +93,7 @@ export default function Flashcards() {
         <button onClick={addCard}>Add Flashcard</button>
       </div>
 
+    
       <div className="card-list">
         {cards.map((c) => (
           <div key={c._id} className="flashcard">

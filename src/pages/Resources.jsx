@@ -11,9 +11,11 @@ export default function Resources() {
 
   const token = localStorage.getItem("token");
 
+  const BASE_URL = "https://study-planner-backend-3kmg.onrender.com/api";
+
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/subjects", {
+      .get(`${BASE_URL}/subjects`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setSubjects(res.data))
@@ -24,7 +26,7 @@ export default function Resources() {
     if (!subjectId) return;
 
     axios
-      .get(`http://localhost:5000/api/resources/${subjectId}`, {
+      .get(`${BASE_URL}/resources/${subjectId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setResources(res.data))
@@ -35,7 +37,7 @@ export default function Resources() {
     if (!title || !url) return;
 
     const res = await axios.post(
-      "http://localhost:5000/api/resources",
+      `${BASE_URL}/resources`,
       { subjectId, title, url },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -46,7 +48,7 @@ export default function Resources() {
   };
 
   const deleteResource = async (id) => {
-    await axios.delete(`http://localhost:5000/api/resources/${id}`, {
+    await axios.delete(`${BASE_URL}/resources/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setResources(resources.filter((r) => r._id !== id));
@@ -86,7 +88,9 @@ export default function Resources() {
       <ul className="resource-list">
         {resources.map((r) => (
           <li key={r._id} className="resource-item">
-            <a href={r.url} target="_blank" rel="noreferrer">{r.title}</a>
+            <a href={r.url} target="_blank" rel="noreferrer">
+              {r.title}
+            </a>
             <br />
             <button className="delete-btn" onClick={() => deleteResource(r._id)}>
               Delete

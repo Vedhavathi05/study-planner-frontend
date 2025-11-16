@@ -14,7 +14,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/subjects", {
+        const res = await axios.get("https://study-planner-backend-3kmg.onrender.com/api/subjects", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setSubjects(res.data);
@@ -32,13 +32,13 @@ export default function Dashboard() {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:5000/api/subjects",
+        "https://study-planner-backend-3kmg.onrender.com/api/subjects",
         { title: newSubject },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       // Refresh subjects list
-      const res = await axios.get("http://localhost:5000/api/subjects", {
+      const res = await axios.get("https://study-planner-backend-3kmg.onrender.com/api/subjects", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSubjects(res.data);

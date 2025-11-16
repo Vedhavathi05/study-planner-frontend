@@ -10,10 +10,11 @@ export default function StudySessions() {
   const [endTime, setEndTime] = useState("");
 
   const token = localStorage.getItem("token");
+  const BASE_URL = "https://study-planner-backend-3kmg.onrender.com/api";
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/subjects", {
+      .get(`${BASE_URL}/subjects`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setSubjects(res.data))
@@ -22,7 +23,7 @@ export default function StudySessions() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/session", {
+      .get(`${BASE_URL}/session`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setSessions(res.data))
@@ -41,7 +42,7 @@ export default function StudySessions() {
       return alert("End time must be after start time");
 
     const res = await axios.post(
-      "http://localhost:5000/api/session",
+      `${BASE_URL}/session`,
       {
         subjectId,
         startTime,
@@ -100,8 +101,7 @@ export default function StudySessions() {
                 "Unknown Subject"}
             </b>
             <br />
-            {new Date(s.startTime).toLocaleString()} →
-            {" "}
+            {new Date(s.startTime).toLocaleString()} →{" "}
             {new Date(s.endTime).toLocaleString()}
             <br />
             ⏱ {s.durationMinutes} minutes

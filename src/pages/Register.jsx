@@ -16,17 +16,23 @@ export default function Register({ setUser }) {
 
     try {
       // Register user
-      await axios.post("http://localhost:5000/api/register", {
-        name,
-        email,
-        password,
-      });
+      await axios.post(
+        "https://study-planner-backend-3kmg.onrender.com/api/register",
+        {
+          name,
+          email,
+          password,
+        }
+      );
 
       // Auto-login user after successful register
-      const loginRes = await axios.post("http://localhost:5000/api/login", {
-        email,
-        password,
-      });
+      const loginRes = await axios.post(
+        "https://study-planner-backend-3kmg.onrender.com/api/login",
+        {
+          email,
+          password,
+        }
+      );
 
       localStorage.setItem("token", loginRes.data.token);
       localStorage.setItem("user", JSON.stringify(loginRes.data.user));
@@ -43,19 +49,34 @@ export default function Register({ setUser }) {
       <form className="form-container" onSubmit={handleRegister}>
         <h2 className="form-title">Register</h2>
 
-        <InputField type="text" placeholder="Name" value={name}
-          onChange={(e) => setName(e.target.value)} />
+        <InputField
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
 
-        <InputField type="email" placeholder="Email" value={email}
-          onChange={(e) => setEmail(e.target.value)} />
+        <InputField
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-        <InputField type="password" placeholder="Password" value={password}
-          onChange={(e) => setPassword(e.target.value)} />
+        <InputField
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
         <Button type="submit" text="Register" />
 
         <p className="form-footer">
-          Already a user? <Link to="/" className="form-link">Login here</Link>
+          Already a user?{" "}
+          <Link to="/" className="form-link">
+            Login here
+          </Link>
         </p>
       </form>
     </div>
