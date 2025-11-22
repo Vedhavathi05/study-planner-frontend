@@ -1,12 +1,14 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
+import { useAuth } from "../../context/AuthContext.jsx"; 
 
 function Navbar() {
   const navigate = useNavigate();
+  const { logout } = useAuth(); 
 
   const handleLogout = () => {
-    localStorage.clear();
+    logout(); 
     navigate("/login");
   };
 
@@ -14,7 +16,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="nav-left">📚 Study Planner</div>
 
-   
+     
       <input type="checkbox" id="menu-toggle" className="toggle-checkbox" />
       <label htmlFor="menu-toggle" className="menu-toggle">☰</label>
 
@@ -24,6 +26,7 @@ function Navbar() {
         <NavLink to="/resources" className="nav-link">Resources</NavLink>
         <NavLink to="/sessions" className="nav-link">Sessions</NavLink>
         <NavLink to="/quizzes" className="nav-link">Quizzes</NavLink>
+
         <button className="logout-btn" onClick={handleLogout}>Logout</button>
       </div>
     </nav>

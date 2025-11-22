@@ -4,6 +4,7 @@ import Card from "../../components/Card/Card";
 import InputField from "../../components/InputField/InputField";
 import Button from "../../components/Button/Button";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext.jsx";  // 🔥 added
 import "./Login.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
@@ -14,6 +15,7 @@ function Login() {
   const [submitting, setSubmitting] = useState(false);
 
   const navigate = useNavigate();
+  const { login } = useAuth(); // 🔥 use auth
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -41,7 +43,9 @@ function Login() {
         return;
       }
 
-      localStorage.setItem("token", res.data.token);
+      // 🔥 store via AuthContext, triggers UI update
+      login(res.data.token);
+
       localStorage.setItem("username", res.data.user?.name || "Learner");
 
       navigate("/dashboard");
@@ -89,7 +93,10 @@ function Login() {
           </Button>
 
           <p className="auth-footer">
-            Don't have an account? <Link className="link-highlight" to="/register" >Register</Link>
+            Don't have an account?{" "}
+            <Link className="link-highlight" to="/register">
+              Register
+            </Link>
           </p>
         </form>
       </Card>

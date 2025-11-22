@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -11,14 +12,15 @@ import StudySessions from "./pages/StudySessions/StudySessions.jsx";
 import Quizzes from "./pages/Quizzes/Quizzes.jsx";
 
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
-import Navbar from "./components/Navbar/Navbar.jsx"; // if you have it
+import Navbar from "./components/Navbar/Navbar.jsx";
+import { AuthProvider, useAuth } from "./context/AuthContext.jsx";
 
-function App() {
-  const token = localStorage.getItem("token");
+function AppContent() {
+  const { isAuthenticated } = useAuth();
 
   return (
     <>
-      {token && <Navbar />}
+      {isAuthenticated && <Navbar />}
 
       <div className="app-shell">
         <Routes>
@@ -74,6 +76,14 @@ function App() {
         </Routes>
       </div>
     </>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 

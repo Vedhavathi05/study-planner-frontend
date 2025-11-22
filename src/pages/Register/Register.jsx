@@ -4,6 +4,7 @@ import Card from "../../components/Card/Card";
 import InputField from "../../components/InputField/InputField";
 import Button from "../../components/Button/Button";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext.jsx";  
 import "./Register.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
@@ -14,6 +15,7 @@ function Register() {
   const [submitting, setSubmitting] = useState(false);
 
   const navigate = useNavigate();
+  const { login } = useAuth(); 
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -37,13 +39,13 @@ function Register() {
       const res = await axios.post(`${API_BASE}/api/auth/register`, form);
 
       if (!res.data.token) {
-        // if you don't want auto-login, you can just navigate("/login")
-        localStorage.setItem("token", "");
         navigate("/login");
         return;
       }
 
-      localStorage.setItem("token", res.data.token);
+      
+      login(res.data.token);
+
       localStorage.setItem("username", res.data.user?.name || "Learner");
 
       navigate("/dashboard");
@@ -101,7 +103,10 @@ function Register() {
           </Button>
 
           <p className="auth-footer">
-            Already have an account? <Link className="link-highlight" to="/login">Login</Link>
+            Already have an account?{" "}
+            <Link className="link-highlight" to="/login">
+              Login
+            </Link>
           </p>
         </form>
       </Card>
