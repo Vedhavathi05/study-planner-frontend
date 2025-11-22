@@ -1,0 +1,90 @@
+.sessions-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-bottom: 4rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.session-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 600px;
+  margin: auto;
+  width: 90%;
+}
+
+.session-form input,
+.session-form select {
+  padding: 0.8rem;
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: white;
+  font-size: 1rem;
+  outline: none;
+}
+
+.session-form input:focus,
+.session-form select:focus {
+  border-color: #9d79ff;
+  background: rgba(255,255,255,0.12);
+}
+
+.session-form select option {
+  background: #131b33 !important;
+  color: white !important;
+  padding: 0.6rem;
+}
+
+.sessions-grid {
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  max-width: 1200px;
+  margin: 1rem auto;
+  width: 100%;
+}
+
+.session-card {
+  background: rgba(20, 25, 45, 0.5);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  position: relative;
+  backdrop-filter: blur(6px);
+  transition: 0.2s;
+}
+
+.session-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 10px rgba(150, 130, 255, 0.3);
+}
+
+.no-data {
+  text-align: center;
+  margin-top: 2rem;
+  opacity: 0.7;
+  font-size: 1rem;
+}
+
+.session-card {
+  max-width: 350px;
+  width: 100%;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .sessions-page {
+    padding: 1rem;
+  }
+
+  .sessions-grid {
+    grid-template-columns: 1fr;
+  }
+}

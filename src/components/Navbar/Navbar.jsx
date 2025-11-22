@@ -1,34 +1,33 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
-export default function Navbar({ user, logout }) {
-  const [open, setOpen] = useState(false);
+function Navbar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">
-        <Link to="/dashboard">StudyApp</Link>
-      </div>
+      <div className="nav-left">📚 Study Planner</div>
 
-      <div className={`navbar-links ${open ? "open" : ""}`}>
-        <Link to="/dashboard">Dashboard</Link>
-        <Link to="/flashcards">Flashcards</Link>
-        <Link to="/quizzies">Quizzes</Link>
-        <Link to="/sessions">Sessions</Link>
-        <Link to="/progress">Progress</Link>
-        <Link to="/resources">Resources</Link>
+   
+      <input type="checkbox" id="menu-toggle" className="toggle-checkbox" />
+      <label htmlFor="menu-toggle" className="menu-toggle">☰</label>
 
-        {user && (
-          <button onClick={logout} className="btn-logout">
-            Logout
-          </button>
-        )}
-      </div>
-
-      <div className="navbar-hamburger" onClick={() => setOpen(!open)}>
-        &#9776;
+      <div className="nav-right">
+        <NavLink to="/dashboard" className="nav-link">Dashboard</NavLink>
+        <NavLink to="/flashcards" className="nav-link">Flashcards</NavLink>
+        <NavLink to="/resources" className="nav-link">Resources</NavLink>
+        <NavLink to="/sessions" className="nav-link">Sessions</NavLink>
+        <NavLink to="/quizzes" className="nav-link">Quizzes</NavLink>
+        <button className="logout-btn" onClick={handleLogout}>Logout</button>
       </div>
     </nav>
   );
 }
+
+export default Navbar;

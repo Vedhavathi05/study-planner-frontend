@@ -1,105 +1,79 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import Flashcards from "./pages/Flashcards";
-import Resources from "./pages/Resources";
-import Progress from "./pages/Progress";
-import StudySessions from "./pages/StudySessions";
-import Quizzes from "./pages/Quizzes";
+import Login from "./pages/Login/Login.jsx";
+import Register from "./pages/Register/Register.jsx";
 
-import Navbar from "./components/Navbar/Navbar";
+import Dashboard from "./pages/Dashboard/Dashboard.jsx";
+import Flashcards from "./pages/Flashcards/Flashcards.jsx";
+import Resources from "./pages/Resources/Resources.jsx";
+import StudySessions from "./pages/StudySessions/StudySessions.jsx";
+import Quizzes from "./pages/Quizzes/Quizzes.jsx";
+
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import Navbar from "./components/Navbar/Navbar.jsx"; // if you have it
 
 function App() {
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setUser(null);
-    window.location.href = "/";
-  };
-
-  const ProtectedRoute = ({ children }) =>
-    localStorage.getItem("token") ? children : <Navigate to="/" />;
+  const token = localStorage.getItem("token");
 
   return (
-    <Router>
-      {localStorage.getItem("token") && <Navbar user={user} logout={logout} />}
+    <>
+      {token && <Navbar />}
 
-      <Routes>
-        {/* Auth Routes */}
-        <Route path="/" element={<Login setUser={setUser} />} />
-        <Route path="/register" element={<Register setUser={setUser} />} />
+      <div className="app-shell">
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
 
-        {/* Dashboard */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-        {/* Flashcards */}
-        <Route
-          path="/flashcards"
-          element={
-            <ProtectedRoute>
-              <Flashcards />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Resources */}
-        <Route
-          path="/resources"
-          element={
-            <ProtectedRoute>
-              <Resources />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/flashcards"
+            element={
+              <ProtectedRoute>
+                <Flashcards />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Progress */}
-        <Route
-          path="/progress"
-          element={
-            <ProtectedRoute>
-              <Progress />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/resources"
+            element={
+              <ProtectedRoute>
+                <Resources />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Sessions */}
-        <Route
-          path="/sessions"
-          element={
-            <ProtectedRoute>
-              <StudySessions />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/sessions"
+            element={
+              <ProtectedRoute>
+                <StudySessions />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Quizzes */}
-        <Route
-          path="/quizzes"
-          element={
-            <ProtectedRoute>
-              <Quizzes />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* Fix the typo route */}
-        <Route path="/quizzies" element={<Navigate to="/quizzes" />} />
-      </Routes>
-    </Router>
+          <Route
+            path="/quizzes"
+            element={
+              <ProtectedRoute>
+                <Quizzes />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </div>
+    </>
   );
 }
 

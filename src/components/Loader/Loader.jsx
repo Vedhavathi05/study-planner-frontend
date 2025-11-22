@@ -1,10 +1,17 @@
 import React from "react";
 import "./Loader.css";
 
-export default function Loader() {
-  return (
-    <div className="loader-container">
-      <div className="loader"></div>
+function Loader({ fullscreen = false }) {
+  const el = (
+    <div className="loader-circle-wrapper">
+      <div className="loader-circle"></div>
+      <p className="loader-text">Loading…</p>
     </div>
   );
+
+  if (!fullscreen) return el;
+
+  return <div className="loader-overlay">{el}</div>;
 }
+
+export default Loader;

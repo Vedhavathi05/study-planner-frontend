@@ -1,197 +1,152 @@
-Sure! Here is a clean, professional **README.md** for your Study Planner MERN project.
-If you want badges, screenshots, or deployment instructions added later, just tell me!
+# 📚 Study Planner – Full Stack MERN App
 
----
-
-# 📚 Study Planner – MERN Full-Stack App
-
-A complete productivity and study-management web application built using the **MERN stack (MongoDB, Express, React, Node.js)**.
-It includes authentication, dashboards, flashcards, study sessions, progress tracking, quizzes, and more.
+A modern study management app that helps students organize subjects, create flashcards, store resources, track study sessions, and take quizzes — all in one place.
 
 ---
 
 ## 🚀 Features
 
-### **🔐 Authentication**
+### 🔐 Authentication
+- Secure JWT login & signup
+- Protected routes per user
 
-* User Registration
-* User Login
-* JWT-based authorization
-* Protected API routes
-* LocalStorage token persistence
+### 🧠 Flashcards
+- Create, edit, delete flashcards by subject
+- Responsive design
+- Stored in MongoDB
 
-### **📊 Dashboard**
+### 🔗 Resources
+- Save useful external links by subject
+- Open links in new tab
+- Clean card UI
 
-* Overview of study activity
-* Quick navigation to all modules
+### ⏱ Study Sessions
+- Log study time with duration tracking
+- View past session history
 
-### **🧠 Flashcards**
-
-* Create, view, and review flashcards
-* Organized by subjects/topics
-
-### **📚 Resources**
-
-* Add and manage external study resources
-* Links, notes, materials
-
-### **📈 Progress Tracking**
-
-* Track topics completed
-* Visual overview of learning progress
-
-### **⏳ Study Sessions**
-
-* Timer-based sessions
-* Session history storage
-
-### **❓ Quizzes**
-
-* Create quizzes
-* Attempt and store scores
+### ❓ Quizzes
+- Multiple-choice quizzes by topic
+- Score calculation & result summary
 
 ---
 
-## 🏗️ Tech Stack
+## 🛠 Tech Stack
 
-### **Frontend**
-
-* React.js
-* React Router
-* CSS / Tailwind (optional)
-* Axios
-
-### **Backend**
-
-* Node.js
-* Express
-* MongoDB (Mongoose)
-* JWT authentication
-* bcrypt password hashing
+Frontend: React + Vite  
+Backend: Node + Express  
+Database: MongoDB (Mongoose)  
+Auth: JWT  
+Deployment: Render + Vercel/Netlify  
 
 ---
 
-## 📁 Project Structure
+## 📂 Folder Structure
 
-```
-project/
-│── client/               # React Frontend
-│   ├── src/
-│   │   ├── pages/        # Login, Register, Dashboard, etc.
-│   │   ├── components/   # Navbar etc.
-│   │   ├── App.js
-│   │   └── index.js
-│
-│── server/               # Backend
-│   ├── models/           # Mongoose models
-│   ├── routes/           # API routes
-│   ├── middleware/       # Auth middleware
-│   ├── Server.js         # Main server file
-│   └── .env              # Environment variables
-│
-└── README.md
-```
+StudyPlanner/
+ ├─ backend/
+ │   ├─ models/
+ │   ├─ controllers/
+ │   ├─ routes/
+ │   ├─ middleware/
+ │   └─ Server.js
+ └─ frontend/
+     ├─ src/components/
+     ├─ src/pages/
+     ├─ src/data/quizzes.js
+     └─ App.jsx
 
 ---
 
-## 🔧 Installation & Setup
+## 🔧 Environment Variables
 
-### **1. Clone the repo**
+### Backend .env
 
-```bash
-git clone https://github.com/yourusername/study-planner.git
-cd study-planner
-```
+MONGO_URI=your_mongo_connection  
+JWT_SECRET=your_secret_key  
+PORT=5000  
 
----
+### Frontend .env
 
-## 📦 Backend Setup
+VITE_API_BASE_URL=https://your-backend.onrender.com
 
-### **2. Install server dependencies**
-
-```bash
-cd server
-npm install
-```
-
-### **3. Create a `.env` file**
-
-```
-PORT=5000
-JWT_SECRET=yourSecretKey
-MONGO_URI=yourMongoDBConnectionString
-```
-
-### **4. Start backend**
-
-```bash
-npm start
-```
+Make sure `.env` is included in `.gitignore`.
 
 ---
 
-## 💻 Frontend Setup
+## ▶ Running Locally
 
-### **5. Install frontend dependencies**
+### Backend
 
-```bash
-cd ../client
-npm install
-```
+cd backend  
+npm install  
+npm start  
 
-### **6. Start frontend**
+### Frontend
 
-```bash
-npm run dev
-```
-
----
-
-## 🌐 Deployment Guide
-
-### **Frontend:**
-
-* Host on **Vercel / Netlify**
-
-### **Backend:**
-
-* Host on **Render / Railway / Cyclic / VPS**
-
-### ⚠️ Make sure to update:
-
-* CORS settings in backend
-* API base URL in frontend Axios
+cd frontend  
+npm install  
+npm run dev  
 
 ---
 
-## 🔒 Environment Variables (Important)
+## 🌍 Deployment
 
-```
-JWT_SECRET=yourJWTKey
-MONGO_URI=yourMongoDBAtlasURI
-PORT=5000
-```
+### Backend on Render
 
-Never commit your `.env` file.
+1. Push code to GitHub  
+2. Create Web Service  
+3. Build command: npm install  
+4. Start command: node Server.js  
+5. Add environment variables  
+6. Deploy
 
----
+### Frontend Deployment
 
-## 🤝 Contributing
+Deploy on **Vercel or Netlify** and set environment variable:
 
-Feel free to fork, open issues, or submit PRs!
-
----
-
-## 📜 License
-
-This project is licensed under the **MIT License**.
+VITE_API_BASE_URL=https://your-backend.onrender.com
 
 ---
 
-If you want, I can also generate:
-✅ Screenshots
-✅ API documentation
-✅ Badges (GitHub, Netlify, Render)
-✅ A more aesthetic README with colors and emojis
+## 🧪 API Routes Summary
 
-Just tell me!
+Auth:
+POST /api/auth/register  
+POST /api/auth/login  
+
+Subjects:
+GET /api/subjects  
+POST /api/subjects  
+
+Flashcards:
+GET /api/flashcards/:subjectId  
+POST /api/flashcards  
+DELETE /api/flashcards/:id  
+
+Resources:
+GET /api/resources/:subjectId  
+POST /api/resources  
+DELETE /api/resources/:id  
+
+Sessions:
+POST /api/session  
+GET /api/session  
+
+---
+
+## ❤️ Contributing
+
+Pull requests are welcome. Open an issue first for major changes.
+
+---
+
+## 📝 License
+
+MIT License
+
+---
+
+### 🚧 Status
+
+Actively in development — more features coming soon 🚀
+

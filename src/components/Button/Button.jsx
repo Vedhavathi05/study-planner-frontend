@@ -1,10 +1,25 @@
 import React from "react";
 import "./Button.css";
 
-export default function Button({ text, onClick, type = "button" }) {
+function Button({
+  children,
+  variant = "primary",
+  fullWidth = false,
+  loading = false,
+  ...rest
+}) {
   return (
-    <button className="btn" onClick={onClick} type={type}>
-      {text}
+    <button
+      className={`btn btn-${variant} ${fullWidth ? "btn-full" : ""}`}
+      disabled={loading || rest.disabled}
+      {...rest}
+    >
+      {loading && <span className="btn-spinner" />}
+      <span className={loading ? "btn-label loading" : "btn-label"}>
+        {children}
+      </span>
     </button>
   );
 }
+
+export default Button;

@@ -1,0 +1,39 @@
+.auth-page {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.auth-card {
+  max-width: 420px;
+  width: 100%;
+}
+
+.auth-error {
+  color: var(--danger);
+  font-size: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.auth-footer a {
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+.link-highlight {
+  color: #007bff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.link-highlight:hover {
+  text-decoration: underline;
+}
